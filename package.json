@@ -1,0 +1,35 @@
+{
+  "name": "pdf-covering",
+  "version": "1.0.0",
+  "description": "Simple application to cover information on a PDF document",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --open --mode development",
+    "build": "webpack --open --mode production"
+  },
+  "keywords": [
+    "pdf",
+    "edition",
+    "coverage",
+    "pdf.js"
+  ],
+  "author": "Tlacaelel Leon",
+  "license": "ISC",
+  "dependencies": {
+    "pdfjs-dist": "^2.3.200"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.5.3",
+    "html-loader": "^1.1.0",
+    "html-webpack-plugin": "^4.3.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "node-sass": "^4.14.0",
+    "sass-loader": "^8.0.2",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  }
+}
