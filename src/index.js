@@ -1,14 +1,8 @@
 import './assets/styles/main.scss';
+import {input, container} from './modules/dom/elements.js';
+import { inputFile } from './modules/events/index';
 
-import renderPdf from './modules/renderPdf';
-// pdfjsLib.workerSrc = '../node_modules/pdfjs-dist/build/pdf.worker.entry.js'
-// require('../node_modules/pdfjs-dist/build/pdf.worker.js');
+inputFile(input,container);
 
-let input = document.getElementById('uploaded-file')
-let container = document.getElementById('container');
-
-//render PDF
-
-renderPdf(input, container)
 
     

@@ -1,6 +1,6 @@
 const renderPage = (page, canvas) => {
-  let width = 900;
-  let scale = 1.3;
+  let width = 1000;
+  let scale;
   let viewport = page.getViewport({ scale: 1 })
   scale = width / viewport.width;
 

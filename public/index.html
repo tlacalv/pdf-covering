@@ -6,8 +6,12 @@
   <title>PDF editor</title>
 </head>
 <body>
-  <input type="file" id="uploaded-file" accept="application/pdf">
+  <div class="controls">
+
+    <input type="file" id="uploaded-file" accept="application/pdf">
+    <label for="uploaded-file">Selecciona un pdf</label>
+    <button>limpiar</button>
+  </div>
   <div class="container" id="container"></div>
-  <canvas id="main-canvas"></canvas>
 </body>
 </html>
