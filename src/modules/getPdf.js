@@ -1,7 +1,9 @@
 import pdfjsLib from 'pdfjs-dist/webpack';
 const getPdf = async (PDFObjectURL) => {
-  let loadingTask = pdfjsLib.getDocument(PDFObjectURL);
-  const pdf = await loadingTask.promise;
+  // let loadingTask = pdfjsLib.getDocument(PDFObjectURL);
+  // let pdf = await loadingTask.promise;
+
+  let pdf = await pdfjsLib.getDocument(PDFObjectURL).promise;
   
   
   return pdf;

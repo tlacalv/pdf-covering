@@ -17,7 +17,7 @@ const disableClear = () => {
 const enableClear = () => {
   clearButton.classList.remove('disabled')
   clearButton.disabled=false;
-  clear(clearButton);
+  clear(clearButton, container);
 }
 const controlsPDFOpen = () => {
   disableSelect();

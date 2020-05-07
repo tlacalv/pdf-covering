@@ -4,8 +4,10 @@ import renderPage from './renderPage';
 
 const renderPdf = async (input, container) => {
   let file = input.files[0];
-  const objectURL = window.URL.createObjectURL(file);
+  let objectURL = window.URL.createObjectURL(file);
+
   const pdf = await getPdf(objectURL);
+  objectURL = null;
   let numPages = pdf.numPages;
   let pages = await getPages(pdf)
   let page = null;
@@ -18,8 +20,11 @@ const renderPdf = async (input, container) => {
     container.appendChild(element);
 
   }
-  input.value=null;
-
+  pages= null;
+  page= null;
+  input.value='';
+  return pdf;
+  
 }
 
 export default renderPdf;

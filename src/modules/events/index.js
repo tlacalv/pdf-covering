@@ -1,15 +1,19 @@
 import renderPdf from "../renderPdf";
+import closePdf from '../closePdf';
 import { controlsPDFOpen, controlsPDFClose } from '../dom/interactionsUI';
-
+let pdf;
 const inputFile = (element, container) => {
   element.onchange = async (e) => {
-    await renderPdf(element, container);
+    pdf = await renderPdf(element, container);
     controlsPDFOpen();
+    
   }
 }
-const clear = (element) => {
-  element.onclick = () => {
+const clear = (element, container) => {
+  element.onclick = (e) => {
+    closePdf(container);
     controlsPDFClose();
+    pdf.destroy().then()
   }
 }
 
