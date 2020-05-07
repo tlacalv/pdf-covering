@@ -1,43 +1,9 @@
+@import './controls.scss';
 body {
   background: #111;
   font-family: Arial, Helvetica, sans-serif;
 }
-.controls {
-  color: #fff;
-  background: rgb(46, 45, 56);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  padding: 0 30px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-#uploaded-file {
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
-}
 
-#uploaded-file + label {
-  padding: 10px 15px;
-  font-size: 1.25em;
-  font-weight: 700;
-  color: white;
-  background-color: red;
-  display: inline-block;
-  cursor: pointer;
-}
-
-#uploaded-file:focus + label,
-#uploaded-file + label:hover {
-  background-color: rgb(168, 16, 16);
-}
 .container {
   width: 90%;
   margin: auto;
