@@ -13,6 +13,7 @@ const clear = (element, container) => {
   element.onclick = (e) => {
     closePdf(container);
     controlsPDFClose();
+    pdf.cleanup();
     pdf.destroy().then()
   }
 }

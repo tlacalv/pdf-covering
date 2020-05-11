@@ -1,4 +1,4 @@
-const renderPage = (page, canvas) => {
+const renderPage = async (page, canvas) => {
   let width = 1000;
   let scale;
   let viewport = page.getViewport({ scale: 1 })
@@ -16,6 +16,7 @@ const renderPage = (page, canvas) => {
       viewport: scaledViewpoer
   };
 
-  page.render(renderContext);
+  await page.render(renderContext)
+  page.cleanup()
 }
 export default renderPage;
