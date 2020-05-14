@@ -14,10 +14,29 @@ const renderPdf = async (input, container) => {
 
   for(let i = 0; i <numPages; i++){
     page = pages[i]
-    let element = document.createElement('canvas');
-    element.id=`page-${i+1}`;
-    renderPage(page, element)
-    container.appendChild(element);
+    let element = document.createElement('canvas'), drawLayer = document.createElement('canvas'), pageCont = document.createElement('div');
+    element.id=`pageRender-${i+1}`;
+    await renderPage(page, element)
+
+    drawLayer.width=element.width;
+    drawLayer.height=element.height;
+    pageCont.appendChild(element);
+    pageCont.appendChild(drawLayer);
+    container.append(pageCont)
+
+    element.style.position="relative"
+    drawLayer.style.position="absolute"
+    element.style.top="0"
+    element.style.left="0"
+    element.style.right="0"
+    element.style.bottom="0"
+    drawLayer.style.top="0"
+    drawLayer.style.left="0"
+    drawLayer.style.right="0"
+    drawLayer.style.bottom="0"
+    drawLayer.id=`drawLayer-${i+1}`
+    pageCont.classList=`page`
+    pageCont.id=`page-${page.pageIndex+1}`;
 
   }
   pages= null;
