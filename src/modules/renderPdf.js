@@ -1,6 +1,7 @@
 import getPdf from './getPdf';
 import getPages from './getPages';
 import renderPage from './renderPage';
+import { drawLayerEvents } from './events';
 
 const renderPdf = async (input, container) => {
   let file = input.files[0];
@@ -14,6 +15,7 @@ const renderPdf = async (input, container) => {
 
   for(let i = 0; i <numPages; i++){
     page = pages[i]
+    //creamos elementos
     let element = document.createElement('canvas'), drawLayer = document.createElement('canvas'), pageCont = document.createElement('div');
     element.id=`pageRender-${i+1}`;
     await renderPage(page, element)
@@ -35,6 +37,8 @@ const renderPdf = async (input, container) => {
     drawLayer.style.right="0"
     drawLayer.style.bottom="0"
     drawLayer.id=`drawLayer-${i+1}`
+
+    drawLayerEvents(drawLayer);
     pageCont.classList=`page`
     pageCont.id=`page-${page.pageIndex+1}`;
 

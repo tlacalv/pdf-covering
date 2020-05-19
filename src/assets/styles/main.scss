@@ -1,4 +1,12 @@
 @import './controls.scss';
+
+
+.swal2-popup {
+  background: #19191a !important;
+}
+.swal2-content, .swal2-title {
+  color: #dcdcdc !important;
+}
 body {
   background: #111;
   font-family: Arial, Helvetica, sans-serif;

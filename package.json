@@ -16,7 +16,8 @@
   "author": "Tlacaelel Leon",
   "license": "ISC",
   "dependencies": {
-    "pdfjs-dist": "^2.3.200"
+    "pdfjs-dist": "^2.3.200",
+    "sweetalert2": "^9.10.13"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
