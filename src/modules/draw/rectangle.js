@@ -11,8 +11,10 @@
   let startX;
   let startY;
   
+  let width, height;
   
-  function rectangle(e) {
+  
+  function rectangle(e={}) {
     let canvas = e.target;
     let ctx = canvas.getContext("2d");
     
@@ -33,12 +35,6 @@
 
   
   return({
-    drawRectangle:(ctx, x, y, w, h) => {
-      ctx.fillRect(x, y, w, h);
-    },
-    clearRectangle:(ctx, x, y, cw, ch)=>{
-      ctx.clearRect(x, y, cw, ch);
-    },
     handleMouseDown:(e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -56,6 +52,13 @@
     
       // the drag is over, clear the dragging flag
       isDown = false;
+      return {
+        context: ctx,
+        startX,
+        startY,
+        width,
+        height
+      }
     },
     
     handleMouseOut(e) {
@@ -83,16 +86,16 @@
       // Put your mousemove stuff here
     
       // clear the canvas
-      this.clearRectangle(ctx,0, 0, canvas.width, canvas.height);
+      clearRectangle(ctx,0, 0, canvas.width, canvas.height);
     
       // calculate the rectangle width/height based
       // on starting vs current mouse position
-      let width = mouseX - startX;
-      let height = mouseY - startY;
+      width = mouseX - startX;
+      height = mouseY - startY;
     
       // draw a new rect from the start position 
       // to the current mouse position
-      this.drawRectangle(ctx, startX, startY, width, height)
+      drawRectangle(ctx, startX, startY, width, height)
       
     
     }
@@ -101,5 +104,14 @@
 
 }
 
-
-export default rectangle;
+const drawRectangle = (ctx, x, y, w, h) => {
+  ctx.fillRect(x, y, w, h);
+}
+const clearRectangle = (ctx, x, y, cw, ch)=>{
+  ctx.clearRect(x, y, cw, ch);
+}
+export {
+  rectangle,
+  drawRectangle,
+  clearRectangle,
+};

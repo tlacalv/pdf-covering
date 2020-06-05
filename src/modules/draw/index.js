@@ -1,4 +1,5 @@
-import rectangle from './rectangle';
+import {rectangle} from './rectangle';
+import { testar } from '../modals/testar';
 
 const ev_canvas = (e) => {
   let rect = new rectangle(e);
@@ -10,7 +11,7 @@ const ev_canvas = (e) => {
       rect.handleMouseMove(e);
     break;
     case 'mouseup':
-      rect.handleMouseUp(e);
+      testar(rect.handleMouseUp(e));
     break;
     case 'mouseout':
       rect.handleMouseOut(e);
