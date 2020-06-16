@@ -1,14 +1,12 @@
-import renderPdf from "../renderPdf";
+import renderPdfHandler from "../handlers/renderPdfHandler.js";
 import closePdf from '../closePdf';
 import { controlsPDFOpen, controlsPDFClose } from '../dom/interactionsUI';
 import Swal from 'sweetalert2';
 import ev_canvas from '../draw';
-let pdf;
+
 const inputFile = (element, container) => {
   element.onchange = async (e) => {
-    pdf = await renderPdf(element, container);
-    controlsPDFOpen();
-
+    renderPdfHandler(e, container);
   }
 }
 const clear = (element, container) => {
@@ -25,8 +23,8 @@ const clear = (element, container) => {
       if (result.value) {
         closePdf(container);
         controlsPDFClose();
-        pdf.cleanup();
-        pdf.destroy().then()
+        // pdf.cleanup();
+        // pdf.destroy().then()
       }
     })
   }

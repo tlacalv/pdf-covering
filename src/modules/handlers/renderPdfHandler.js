@@ -1,24 +1,20 @@
-import getPdf from './getPdf';
-import getPages from './getPages';
-import renderPage from './renderPage';
-import { drawLayerEvents } from './events';
+import Pdf from '../pdf.js';
+import { drawLayerEvents } from '../events';
+import { controlsPDFOpen } from '../dom/interactionsUI';
 
-const renderPdf = async (input, container) => {
-  let file = input.files[0];
-  let objectURL = window.URL.createObjectURL(file);
-
-  const pdf = await getPdf(objectURL);
-  objectURL = null;
-  let numPages = pdf.numPages;
-  let pages = await getPages(pdf)
-  let page = null;
-
-  for(let i = 0; i <numPages; i++){
+const renderPdfHandler = async (e, container) => {
+  let objectURL = window.URL.createObjectURL(e.target.files[0]);
+  let pdf = new Pdf();
+  await pdf.initializePdf(objectURL);
+  let pages = await pdf.getPages();
+  let page;
+  //rendering pdf
+  for(let i = 0; i<pdf.numPages; i++) {
     page = pages[i]
     //creamos elementos
     let element = document.createElement('canvas'), drawLayer = document.createElement('canvas'), pageCont = document.createElement('div');
     element.id=`pageRender-${i+1}`;
-    await renderPage(page, element)
+    await pdf.renderPage(page, element)
 
     drawLayer.width=element.width;
     drawLayer.height=element.height;
@@ -41,13 +37,8 @@ const renderPdf = async (input, container) => {
     drawLayerEvents(drawLayer);
     pageCont.classList=`page`
     pageCont.id=`page-${page.pageIndex+1}`;
-
   }
-  pages= null;
-  page= null;
-  input.value='';
-  return pdf;
-  
+  controlsPDFOpen();
 }
 
-export default renderPdf;
+export default renderPdfHandler;
