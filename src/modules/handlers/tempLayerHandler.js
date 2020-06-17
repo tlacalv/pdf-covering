@@ -1,7 +1,7 @@
-import {rectangle} from './rectangle';
+import {rectangle} from '../draw/rectangle';
 import { testar } from '../modals/testar';
 
-const ev_canvas = (e) => {
+const tempLayerHandler = (e) => {
   let rect = new rectangle(e);
   switch(e.type){
     case 'mousedown':
@@ -23,4 +23,4 @@ const ev_canvas = (e) => {
 
 
 
-export default ev_canvas;
+export default tempLayerHandler;

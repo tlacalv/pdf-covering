@@ -1,9 +1,4 @@
 
-
-  
-  let scrollX = 0;
-  let scrollY = 0;
-  
   // this flage is true when the user is dragging the mouse
   let isDown = false;
   
@@ -21,16 +16,9 @@
     ctx.strokeStyle = "blue";
     ctx.lineWidth = 3;
     
-    let canvasOffset = {
-      left: canvas.offsetLeft,
-      top: canvas.offsetTop,
-      
-    };
     
-    // let offsetX = canvas.offsetLeft;
+
     const offsetX = ()=>(canvas.getBoundingClientRect().x);
-    
-    // const offsetY = ()=>(canvas.getBoundingClientRect().y < 0)? canvas.getBoundingClientRect().y : (canvas.getBoundingClientRect().y*-1);
     const offsetY = ()=>(canvas.getBoundingClientRect().top*-1);
 
   

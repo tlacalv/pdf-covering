@@ -1,5 +1,5 @@
 import Pdf from '../pdf.js';
-import { drawLayerEvents } from '../events';
+import { tempLayerEvents } from '../events';
 import { controlsPDFOpen } from '../dom/interactionsUI';
 
 const renderPdfHandler = async (e, container) => {
@@ -12,29 +12,29 @@ const renderPdfHandler = async (e, container) => {
   for(let i = 0; i<pdf.numPages; i++) {
     page = pages[i]
     //creamos elementos
-    let element = document.createElement('canvas'), drawLayer = document.createElement('canvas'), pageCont = document.createElement('div');
+    let element = document.createElement('canvas'), tempDrawLayer = document.createElement('canvas'), pageCont = document.createElement('div');
     element.id=`pageRender-${i+1}`;
     await pdf.renderPage(page, element)
 
-    drawLayer.width=element.width;
-    drawLayer.height=element.height;
+    tempDrawLayer.width=element.width;
+    tempDrawLayer.height=element.height;
     pageCont.appendChild(element);
-    pageCont.appendChild(drawLayer);
+    pageCont.appendChild(tempDrawLayer);
     container.append(pageCont)
 
     element.style.position="relative"
-    drawLayer.style.position="absolute"
+    tempDrawLayer.style.position="absolute"
     element.style.top="0"
     element.style.left="0"
     element.style.right="0"
     element.style.bottom="0"
-    drawLayer.style.top="0"
-    drawLayer.style.left="0"
-    drawLayer.style.right="0"
-    drawLayer.style.bottom="0"
-    drawLayer.id=`drawLayer-${i+1}`
+    tempDrawLayer.style.top="0"
+    tempDrawLayer.style.left="0"
+    tempDrawLayer.style.right="0"
+    tempDrawLayer.style.bottom="0"
+    tempDrawLayer.id=`tempDrawLayer-${i+1}`
 
-    drawLayerEvents(drawLayer);
+    tempLayerEvents(tempDrawLayer);
     pageCont.classList=`page`
     pageCont.id=`page-${page.pageIndex+1}`;
   }

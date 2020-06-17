@@ -2,7 +2,7 @@ import renderPdfHandler from "../handlers/renderPdfHandler.js";
 import closePdf from '../closePdf';
 import { controlsPDFOpen, controlsPDFClose } from '../dom/interactionsUI';
 import Swal from 'sweetalert2';
-import ev_canvas from '../draw';
+import tempLayerHandler from '../handlers/tempLayerHandler';
 
 const inputFile = (element, container) => {
   element.onchange = async (e) => {
@@ -30,16 +30,24 @@ const clear = (element, container) => {
   }
 }
 
-const drawLayerEvents = (canvas) => {
-  canvas.addEventListener('mousedown', ev_canvas, false)
-  canvas.addEventListener('mousemove', ev_canvas, false)
-  canvas.addEventListener('mouseup', ev_canvas, false)
-  canvas.addEventListener('mouseout', ev_canvas, false)
+const tempLayerEvents = (canvas) => {
+  canvas.onmousedown = (e) => {
+    tempLayerHandler(e);
+  }
+  canvas.onmouseup = (e) => {
+    tempLayerHandler(e);
+  }
+  canvas.onmousemove = (e) => {
+    tempLayerHandler(e);
+  }
+  canvas.onmouseout = (e) => {
+    tempLayerHandler(e);
+  }
 
 }
 
 export {
   inputFile,
   clear,
-  drawLayerEvents
+  tempLayerEvents
 };
