@@ -12,10 +12,24 @@ const testar = (data) => {
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
     confirmButtonText: 'Continuar',
+    inputValidator: (value) => {
+      return new Promise((resolve) => {
+        if(value.length > 0) {
+          resolve();
+        } else {
+          resolve('Ingresa un motivo de testado');
+        }
+      })
+    }
   }).then((result) => {
     if (result.value) {
       data = {text: result.value, ...data}
-      console.log(data)
+      
+      //drawlayer
+      let drawlayer = data.context.canvas.parentNode.childNodes[1];
+      let drawlayerCtx = drawlayer.getContext('2d');
+      drawRectangle(drawlayerCtx, data.startX, data.startY, data.width, data.height);
+      clearRectangle(data.context, data.startX, data.startY, data.width, data.height);
     }
     
     if(result.dismiss) {
