@@ -2,9 +2,14 @@ import renderPdfHandler from "../handlers/renderPdfHandler.js";
 import tempLayerHandler from '../handlers/tempLayerHandler';
 import { close } from "../modals/close";
 
+let store;
+const setStore = (passedStore) => {
+  store = passedStore;
+}
+
 const inputFile = (element, container) => {
   element.onchange = async (e) => {
-    renderPdfHandler(e, container);
+    renderPdfHandler(e, container, store);
   }
 }
 const clear = (element, container) => {
@@ -30,6 +35,7 @@ const tempLayerEvents = (canvas) => {
 }
 
 export {
+  setStore,
   inputFile,
   clear,
   tempLayerEvents

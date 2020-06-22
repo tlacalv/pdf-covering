@@ -1,8 +1,9 @@
 import Pdf from '../pdf.js';
 import { tempLayerEvents } from '../events';
 import { controlsPDFOpen } from '../dom/interactionsUI';
+import { addPage } from '../../actions';
 
-const renderPdfHandler = async (e, container) => {
+const renderPdfHandler = async (e, container, store) => {
   let objectURL = window.URL.createObjectURL(e.target.files[0]);
   let pdf = new Pdf();
   await pdf.initializePdf(objectURL);
@@ -53,7 +54,10 @@ const renderPdfHandler = async (e, container) => {
     tempLayerEvents(tempDrawLayer);
     pageCont.classList=`page`
     pageCont.id=`page-${page.pageIndex+1}`;
+
+    store.dispatch(addPage(drawLayer.id, page.pageIndex+1));
   }
+  console.log(store.getState());
   controlsPDFOpen();
 }
 
