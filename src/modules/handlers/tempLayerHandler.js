@@ -1,7 +1,7 @@
 import {rectangle} from '../draw/rectangle';
 import { testar } from '../modals/testar';
 
-const tempLayerHandler = (e) => {
+const tempLayerHandler = (e, store) => {
   let rect = new rectangle(e);
   switch(e.type){
     case 'mousedown':
@@ -11,7 +11,7 @@ const tempLayerHandler = (e) => {
       rect.handleMouseMove(e);
     break;
     case 'mouseup':
-      testar(rect.handleMouseUp(e));
+      testar(rect.handleMouseUp(e), store);
     break;
     case 'mouseout':
       rect.handleMouseOut(e);

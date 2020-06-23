@@ -9,7 +9,7 @@ const setStore = (passedStore) => {
 
 const inputFile = (element, container) => {
   element.onchange = async (e) => {
-    renderPdfHandler(e, container, store);
+    renderPdfHandler(e, container);
   }
 }
 const clear = (element, container) => {
@@ -20,16 +20,16 @@ const clear = (element, container) => {
 
 const tempLayerEvents = (canvas) => {
   canvas.onmousedown = (e) => {
-    tempLayerHandler(e);
+    tempLayerHandler(e, store);
   }
   canvas.onmouseup = (e) => {
-    tempLayerHandler(e);
+    tempLayerHandler(e, store);
   }
   canvas.onmousemove = (e) => {
-    tempLayerHandler(e);
+    tempLayerHandler(e, store);
   }
   canvas.onmouseout = (e) => {
-    tempLayerHandler(e);
+    tempLayerHandler(e, store);
   }
 
 }

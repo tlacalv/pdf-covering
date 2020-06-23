@@ -1,8 +1,9 @@
 import Swal from 'sweetalert2';
 import { drawRectangle, clearRectangle } from '../draw/rectangle';
+import { addPage } from '../../actions';
 
 // let rect = new rectangle();
-const testar = (data) => {
+const testar = (data, store) => {
   Swal.fire({
     title: 'Testar',
     text: "Ingresa el motivo de testado",
@@ -30,6 +31,17 @@ const testar = (data) => {
       let drawlayerCtx = drawlayer.getContext('2d');
       drawRectangle(drawlayerCtx, data.startX, data.startY, data.width, data.height);
       clearRectangle(data.context, data.startX, data.startY, data.width, data.height);
+      
+      //get page and id
+      let page = drawlayer.id;
+      page = page.split('-');
+      page = page[page.length-1];
+      //add page to store
+      let state = store.getState();
+      //find
+      if(!state.find(element => element.idPage === drawlayer.id)) {
+        store.dispatch(addPage(drawlayer.id, page));
+      }
     }
     
     if(result.dismiss) {
