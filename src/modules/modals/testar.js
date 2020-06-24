@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 import { drawRectangle, clearRectangle } from '../draw/rectangle';
-import { addPage } from '../../actions';
+import { addPage, addRectangle } from '../../actions';
 
 // let rect = new rectangle();
 const testar = (data, store) => {
@@ -42,6 +42,7 @@ const testar = (data, store) => {
       if(!state.find(element => element.idPage === drawlayer.id)) {
         store.dispatch(addPage(drawlayer.id, page));
       }
+      store.dispatch(addRectangle({ idPage: drawlayer.id, text: data.text, x: data.startX, y: data.startY, h: data.height, w: data.width }))
     }
     
     if(result.dismiss) {

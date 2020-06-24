@@ -14,7 +14,7 @@ const inputFile = (element, container) => {
 }
 const clear = (element, container) => {
   element.onclick = (e) => {
-    close(container);
+    close(container, store);
   }
 }
 

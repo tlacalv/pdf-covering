@@ -12,3 +12,16 @@ export function addPage(idPage, numPage) {
     numPage
   }
 }
+
+export function addRectangle(payload) {
+  return {
+    type: ADD_RECTANGLE,
+    payload
+  }
+}
+
+export function deleteAll() {
+  return {
+    type: DELETE_ALL
+  }
+}
