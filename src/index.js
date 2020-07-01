@@ -9,9 +9,7 @@ const store = createStore(coveringApp, composeWithDevTools(
   applyMiddleware()
 ));
 
-console.log(store.getState());
 
-const unsuscribe = store.subscribe(() => console.log(store.getState()));
 setStore(store);
 
 

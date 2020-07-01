@@ -1,5 +1,5 @@
-import { selectButton, container, input, clearButton } from './elements.js';
-import { inputFile, clear } from '../events/index';
+import { selectButton, container, input, clearButton, clearStateButton } from './elements.js';
+import { inputFile, clear, cleanState } from '../events/index';
 
 const disableSelect = () => {
   selectButton.classList.add('disabled')
@@ -13,10 +13,18 @@ const disableClear = () => {
   clearButton.classList.add('disabled')
   clearButton.disabled=true;
   clearButton.onclick=null;
+  
+  clearStateButton.classList.add('disabled')
+  clearStateButton.disabled=true;
+  clearStateButton.onclick=null;
 }
 const enableClear = () => {
   clearButton.classList.remove('disabled')
   clearButton.disabled=false;
+  clearStateButton.classList.remove('disabled')
+  clearStateButton.disabled=false;
+
+  cleanState(clearStateButton);
   clear(clearButton, container);
 }
 const controlsPDFOpen = () => {

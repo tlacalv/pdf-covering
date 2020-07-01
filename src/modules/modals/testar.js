@@ -36,7 +36,6 @@ const testar = (data, store) => {
     }
   }).then((result) => {
     if (result.value) {
-      console.log('resultado', result);
       data = {text: options[result.value], ...data}
       
       //drawlayer
