@@ -1,7 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-
+const TerserPlugin = require('terser-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
   entry: {
     // pdfworker : './node_modules/pdfjs-dist/build/pdf.worker.js',
@@ -9,8 +10,13 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js',
-    publicPath: '/',
+    filename: '[name].bundle.js'
+  },
+  optimization: {
+    minimize:true,
+    minimizer: [new TerserPlugin({
+      test: /\.js(\?.*)?$/i,
+    })],
   },
   resolve: {
     extensions: ['.js'],
@@ -59,6 +65,7 @@ module.exports = {
     historyApiFallback: true,
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './public/index.html',
       filename: './index.html',
