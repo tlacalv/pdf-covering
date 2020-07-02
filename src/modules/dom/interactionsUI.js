@@ -1,5 +1,5 @@
-import { selectButton, container, input, clearButton, clearStateButton } from './elements.js';
-import { inputFile, clear, cleanState } from '../events/index';
+import { selectButton, container, input, clearButton, clearStateButton, saveButton } from './elements.js';
+import { inputFile, clear, cleanState, savePdf } from '../events/index';
 
 const disableSelect = () => {
   selectButton.classList.add('disabled')
@@ -17,13 +17,20 @@ const disableClear = () => {
   clearStateButton.classList.add('disabled')
   clearStateButton.disabled=true;
   clearStateButton.onclick=null;
+
+  saveButton.classList.add('disabled')
+  saveButton.disabled=true;
+  saveButton.onclick=null;
 }
 const enableClear = () => {
   clearButton.classList.remove('disabled')
   clearButton.disabled=false;
   clearStateButton.classList.remove('disabled')
   clearStateButton.disabled=false;
+  saveButton.classList.remove('disabled')
+  saveButton.disabled=false;
 
+  savePdf(saveButton);
   cleanState(clearStateButton);
   clear(clearButton, container);
 }

@@ -1,5 +1,6 @@
 import renderPdfHandler from "../handlers/renderPdfHandler.js";
 import tempLayerHandler from '../handlers/tempLayerHandler';
+import savePdfHandler from '../handlers/savePdfHandler';
 import { close } from "../modals/close";
 import { cleanStateModal } from '../modals/cleanStateModal';
 
@@ -40,8 +41,14 @@ const tempLayerEvents = (canvas) => {
   }
 
 }
+const savePdf = (button) => {
+  button.onclick = (e) => {
+    savePdfHandler();
+  }
+}
 
 export {
+  savePdf,
   cleanState,
   setStore,
   inputFile,

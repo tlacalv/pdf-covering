@@ -16,6 +16,7 @@
   "author": "Tlacaelel Leon",
   "license": "ISC",
   "dependencies": {
+    "jspdf": "^1.5.3",
     "pdfjs-dist": "^2.3.200",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
