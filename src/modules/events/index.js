@@ -41,9 +41,9 @@ const tempLayerEvents = (canvas) => {
   }
 
 }
-const savePdf = (button) => {
-  button.onclick = (e) => {
-    savePdfHandler();
+const savePdf = async (button, container) => {
+  button.onclick = async (e) => {
+    await savePdfHandler(container);
   }
 }
 

@@ -30,7 +30,7 @@ const enableClear = () => {
   saveButton.classList.remove('disabled')
   saveButton.disabled=false;
 
-  savePdf(saveButton);
+  savePdf(saveButton, container);
   cleanState(clearStateButton);
   clear(clearButton, container);
 }
