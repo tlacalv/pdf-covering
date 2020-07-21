@@ -1,9 +1,9 @@
 import jsPDF from 'jspdf';
 
-const savePdfHandler = (container) => {
+const savePdfHandler = (container, store) => {
   
   if (container.children.length > 0) {
-    
+    let state = store.getState();
   
     //integra con el estado para solo unir las imagenes dibujadas ///
 
@@ -42,22 +42,38 @@ const savePdfHandler = (container) => {
     // // }        
     // // i++;
     
-    
+    console.time("loop");
     for (let i = 0; i < pages.length; i++){
       let imagePDF = pages[i].children[0];
       let imageCanvas = pages[i].children[1];
       let width = doc.internal.pageSize.getWidth();
       let height = doc.internal.pageSize.getHeight();
-      
+      let isDrawn = false;
+
       tempCanvas.width=imagePDF.width;
       tempCanvas.height=imagePDF.height;
-      
-      tempContext.drawImage(imagePDF, 0, 0);
-      tempContext.drawImage(imageCanvas,0, 0);
-      
-      doc.addImage(tempCanvas,'JPG',0,0,width,height,undefined,'FAST');
-      doc.addPage();
+
+      state.forEach((page) => {
+        if (page.idPage === imageCanvas.id) {
+          isDrawn = true;
+        }
+      })
+
+      if(isDrawn) {
+        tempContext.drawImage(imagePDF, 0, 0);
+        tempContext.drawImage(imageCanvas,0, 0);
+        
+        doc.addImage(tempCanvas,'JPG',0,0,width,height,undefined,'FAST');
+      }else {
+        doc.addImage(imagePDF,'JPG',0,0,width,height,undefined,'FAST');
+
+      }
+
+      if(i+1 !== pages.length) {
+        doc.addPage();
+      }
     }
+    console.timeEnd("loop");
     doc.save(pdfName);
     
     

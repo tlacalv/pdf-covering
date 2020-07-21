@@ -43,7 +43,7 @@ const tempLayerEvents = (canvas) => {
 }
 const savePdf =  (button, container) => {
   button.onclick =  (e) => {
-    savePdfHandler(container)
+    savePdfHandler(container, store)
   }
 }
 
