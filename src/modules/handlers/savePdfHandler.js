@@ -9,38 +9,12 @@ const savePdfHandler = (container, store) => {
 
 
     let pages = container.children;
-    let doc = new jsPDF('p', 'pt', 'letter');
+    let doc = new jsPDF('p', 'pt', 'letter', true, true);
     let pdfName = 'sample.pdf';
 
     //preparacion pdf
     let tempCanvas = document.createElement('canvas');
     let tempContext = tempCanvas.getContext("2d");
-    // // if ($("div.pf").length==i+1) {
-      
-    // //   //doc.save('sample-file.pdf');
-      
-    // //   var blob = doc.output('blob');
-    // //   let arreglo = elements.map(item=>{
-    // //     return item.texto;
-    // //   });
-    // //   var formData = new FormData();
-    // //   formData.append('pdf', blob);
-    // //   formData.append('accion', 'guardar_vp');
-    // //   formData.append('elements', arreglo);
-    // //   console.log(formData);
-    // //   $.ajax('operacionesVP.php',
-    // //   {
-    // //       method: 'POST',
-    // //       data: formData,
-    // //       processData: false,
-    // //       contentType: false,
-    // //       success: function(data){console.log(data); $('#dialog').dialog("close");},
-    // //       error: function(data){ console.log(data)}
-    // //   }); 
-    // // } else {
-    // //   doc.addPage();
-    // // }        
-    // // i++;
     
     console.time("loop");
     for (let i = 0; i < pages.length; i++){
@@ -74,7 +48,42 @@ const savePdfHandler = (container, store) => {
       }
     }
     console.timeEnd("loop");
-    doc.save(pdfName);
+    
+    //API CALL
+      
+    let blob = doc.output('blob');
+
+    let formData = new FormData();
+    formData.append('pdf', blob);
+    
+
+    //revisamos el estado para sacar la informacion y enviarla al servidor
+    let pagesArray = [], messageArray = []
+
+    state.forEach(
+      page => {
+        pagesArray.push(page.numPage)
+        page.rectangles.forEach(
+          rectangle => {
+            if(!messageArray.includes(rectangle.text)) {
+              messageArray.push(rectangle.text)
+            }
+          }
+        )
+      }
+    )
+    formData.append('pages', pagesArray);
+    formData.append('messages', messageArray);
+
+    fetch('http://localhost/SIGTRANS/ajax/pdfupload.ajax.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then( response => response.text().then(text => console.log(text)))
+    .then(data => console.log(data))
+    .catch(er => console.log(er));
+    
+      
     
     
   }
