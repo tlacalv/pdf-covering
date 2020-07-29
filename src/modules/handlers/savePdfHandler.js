@@ -18,14 +18,24 @@ const savePdfHandler = (container, store) => {
     
     console.time("loop");
     for (let i = 0; i < pages.length; i++){
+      //page
       let imagePDF = pages[i].children[0];
+      //draw
       let imageCanvas = pages[i].children[1];
       let width = doc.internal.pageSize.getWidth();
       let height = doc.internal.pageSize.getHeight();
       let isDrawn = false;
 
-      tempCanvas.width=imagePDF.width;
-      tempCanvas.height=imagePDF.height;
+      //optimization
+      // let imagePDFctx = imagePDF.getContext('2d');
+      // let imageCanvasctx = imageCanvas.getContext('2');
+      // imagePDFctx.width = Math.floor((imagePDF.width)/2);
+      // imagePDFctx.height = Math.floor((imagePDF.height)/2);
+      // imageCanvasctx.width = Math.floor((imageCanvas.width)/2);
+      // imageCanvasctx.height = Math.floor((imageCanvas.height)/2);
+      //optimization
+      tempCanvas.width=Math.floor((imagePDF.width)/1.5);
+      tempCanvas.height=Math.floor((imagePDF.height)/1.5);
 
       state.forEach((page) => {
         if (page.idPage === imageCanvas.id) {
@@ -34,12 +44,13 @@ const savePdfHandler = (container, store) => {
       })
 
       if(isDrawn) {
-        tempContext.drawImage(imagePDF, 0, 0);
-        tempContext.drawImage(imageCanvas,0, 0);
+        tempContext.drawImage(imagePDF, 0, 0, imagePDF.width, imagePDF.height, 0, 0, tempCanvas.width, tempCanvas.height);
+        tempContext.drawImage(imageCanvas,0, 0, imageCanvas.width, imageCanvas.height, 0, 0, tempCanvas.width, tempCanvas.height);
         
-        doc.addImage(tempCanvas,'JPG',0,0,width,height,undefined,'FAST');
+        doc.addImage(tempCanvas,'JPG',0,0,width,height,undefined,'SLOW');
       }else {
-        doc.addImage(imagePDF,'JPG',0,0,width,height,undefined,'FAST');
+        tempContext.drawImage(imagePDF, 0, 0, imagePDF.width, imagePDF.height, 0, 0, tempCanvas.width, tempCanvas.height);
+        doc.addImage(tempCanvas,'JPG',0,0,width,height,undefined,'SLOW');
 
       }
 
@@ -50,9 +61,13 @@ const savePdfHandler = (container, store) => {
     console.timeEnd("loop");
     
     //API CALL
-      
+    // doc.save('d');
     let blob = doc.output('blob');
 
+    let size = (bytes) => {
+      return bytes/1024/1024
+    }
+    console.log('MB', size(blob.size));
     let formData = new FormData();
     formData.append('pdf', blob);
     
@@ -75,13 +90,13 @@ const savePdfHandler = (container, store) => {
     formData.append('pages', pagesArray);
     formData.append('messages', messageArray);
 
-    fetch('http://localhost/SIGTRANS/ajax/pdfupload.ajax.php', {
-      method: 'POST',
-      body: formData
-    })
-    .then( response => response.text().then(text => console.log(text)))
-    .then(data => console.log(data))
-    .catch(er => console.log(er));
+    // fetch('http://localhost/SIGTRANS/ajax/pdfupload.ajax.php', {
+    //   method: 'POST',
+    //   body: formData
+    // })
+    // .then( response => response.text().then(text => console.log(text)))
+    // .then(data => console.log(data))
+    // .catch(er => console.log(er));
     
       
     
