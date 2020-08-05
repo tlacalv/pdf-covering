@@ -1,3 +1,7 @@
+<?php 
+  $id = $_GET['id_oficio'];
+  echo '<input type="text" style="display:none;" id="id_oficio" value="'. $id .'">';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

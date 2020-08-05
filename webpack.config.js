@@ -67,8 +67,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './public/index.html',
-      filename: './index.html',
+      template: './public/index.php',
+      filename: './index.php',
     }),
     new MiniCssExtractPlugin({
       filename: 'assets/[name].css',
