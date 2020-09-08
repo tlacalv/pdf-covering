@@ -87,8 +87,13 @@ const savePdfHandler = (container, store) => {
       method: 'POST',
       body: formData
     })
-    .then( response => response.text().then(text => console.log(text)))
-    .then(data => console.log(data))
+    .then( response => response.json())
+    .then(data => {
+      window.close();
+      console.log(data.url);
+      window.location.replace(data.url);
+      console.log('holo')
+    })
     .catch(er => console.log(er));
     
       
