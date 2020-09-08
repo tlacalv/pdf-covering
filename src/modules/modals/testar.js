@@ -3,24 +3,12 @@ import { drawRectangle, clearRectangle } from '../draw/rectangle';
 import { addPage, addRectangle } from '../../actions';
 
 // let rect = new rectangle();
-//Options
-let options = [
-  'Domicilio particular que es diferente al lugar en dónde se realiza la actividad y/o para recibir notificaciones.',
-  'Teléfono y correo electrónico de particulares.',
-  'OCR de la Credencial de Elector.',
-  'Código QR.',
-  'Clave de elector de la credencial para votar, nombre, domicilio, teléfono y/o correo electrónico de terceros.',
-  'Fotografía del promovente.'
-]
 const testar = (data, store) => {
   Swal.fire({
     title: 'Testar',
     text: "Ingresa el motivo de testado",
     icon: 'info',
-    input: 'select',
-    inputOptions: {
-      ...options
-    },  
+    input: 'text',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
@@ -36,7 +24,7 @@ const testar = (data, store) => {
     }
   }).then((result) => {
     if (result.value) {
-      data = {text: options[result.value], ...data}
+      data = {text: result.value, ...data}
       
       //drawlayer
       let drawlayer = data.context.canvas.parentNode.childNodes[1];
