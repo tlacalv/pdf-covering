@@ -1,5 +1,4 @@
 import jsPDF from 'jspdf';
-import { inputIdOficio } from '../dom/elements';
 const savePdfHandler = (container, store) => {
   
   if (container.children.length > 0) {
@@ -16,7 +15,7 @@ const savePdfHandler = (container, store) => {
     let tempCanvas = document.createElement('canvas');
     let tempContext = tempCanvas.getContext("2d");
     
-    console.time("loop");
+    console.time("Generating pdf");
     for (let i = 0; i < pages.length; i++){
       //page
       let imagePDF = pages[i].children[0];
@@ -27,8 +26,8 @@ const savePdfHandler = (container, store) => {
       let isDrawn = false;
 
       
-      tempCanvas.width=Math.floor((imagePDF.width)/1.3);
-      tempCanvas.height=Math.floor((imagePDF.height)/1.3);
+      tempCanvas.width=Math.floor((imagePDF.width)/1.1);
+      tempCanvas.height=Math.floor((imagePDF.height)/1.1);
 
       state.forEach((page) => {
         if (page.idPage === imageCanvas.id) {
@@ -51,20 +50,12 @@ const savePdfHandler = (container, store) => {
         doc.addPage();
       }
     }
-    console.timeEnd("loop");
+    console.timeEnd("Generating pdf");
     
-    //API CALL
+    
     // doc.save('d');
-    let blob = doc.output('blob');
-
-    let size = (bytes) => {
-      return bytes/1024/1024
-    }
-    console.log('MB', size(blob.size));
-    let formData = new FormData();
-    formData.append('pdf', blob);
+    doc.save('sample.pdf');
     
-
     //revisamos el estado para sacar la informacion y enviarla al servidor
     let pagesArray = [], messageArray = []
 
@@ -80,21 +71,8 @@ const savePdfHandler = (container, store) => {
         )
       }
     )
-    formData.append('pages', pagesArray);
-    formData.append('messages', messageArray);
-    formData.append('id_oficio', inputIdOficio.value);
-    fetch('http://localhost/SIGTRANS/ajax/pdfupload.ajax.php', {
-      method: 'POST',
-      body: formData
-    })
-    .then( response => response.json())
-    .then(data => {
-      window.close();
-      console.log(data.url);
-      window.location.replace(data.url);
-      console.log('holo')
-    })
-    .catch(er => console.log(er));
+    console.log(pagesArray);
+    console.log(messageArray);
     
       
     

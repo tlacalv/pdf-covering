@@ -1,7 +1,3 @@
-<?php 
-  $id = $_GET['id_oficio'];
-  echo '<input type="text" style="display:none;" id="id_oficio" value="'. $id .'">';
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +7,7 @@
 </head>
 <body>
   <div class="controls">
-    <div class="cont">
+    <div class="cont" id="controls">
       <input type="file" id="uploaded-file" accept="application/pdf">
       <label class="select-file" id="select-file" for="uploaded-file">Selecciona un pdf</label>
       <button class="clear disabled" id="clear-state" disabled>limpiar</button>

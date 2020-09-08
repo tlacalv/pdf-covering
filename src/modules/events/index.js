@@ -1,6 +1,7 @@
 import renderPdfHandler from "../handlers/renderPdfHandler.js";
 import tempLayerHandler from '../handlers/tempLayerHandler';
 import savePdfHandler from '../handlers/savePdfHandler';
+import { menuBar } from '../dom/elements.js';
 import { close } from "../modals/close";
 import { cleanStateModal } from '../modals/cleanStateModal';
 
@@ -12,6 +13,10 @@ const setStore = (passedStore) => {
 const inputFile = (element, container) => {
   element.onchange = async (e) => {
     renderPdfHandler(e, container);
+    let message = document.createElement('p');
+    message.classList='message';
+    message.innerText='Arrastra el mouse en la pagina para cubrir informacion - \nDrag anywhere on the page to cover information';
+    menuBar.appendChild(message);
   }
 }
 const clear = (element, container) => {
