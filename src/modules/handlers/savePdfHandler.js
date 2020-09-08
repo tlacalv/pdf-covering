@@ -71,8 +71,8 @@ const savePdfHandler = (container, store) => {
         )
       }
     )
-    console.log(pagesArray);
-    console.log(messageArray);
+    console.log('Pages: ', pagesArray);
+    console.log('Messages: ', messageArray);
     
       
     
