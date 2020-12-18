@@ -83,16 +83,16 @@ const savePdfHandler = (container, store) => {
     formData.append('pages', pagesArray);
     formData.append('messages', messageArray);
     formData.append('id_oficio', inputIdOficio.value);
-    fetch('http://localhost/SIGTRANS/ajax/pdfupload.ajax.php', {
+    fetch('http://10.13.1.3/SIGTRANS/ajax/pdfupload.ajax.php', {
       method: 'POST',
       body: formData
     })
     .then( response => response.json())
     .then(data => {
+      console.log(data)
       window.close();
       console.log(data.url);
       window.location.replace(data.url);
-      console.log('holo')
     })
     .catch(er => console.log(er));
     
