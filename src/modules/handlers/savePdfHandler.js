@@ -70,7 +70,7 @@ const savePdfHandler = (container, store) => {
 
     state.forEach(
       page => {
-        pagesArray.push(page.numPage)
+        pagesArray.push(parseInt(page.numPage))
         page.rectangles.forEach(
           rectangle => {
             if(!messageArray.includes(rectangle.text.replace(/,/gi,'-'))) {
@@ -80,19 +80,46 @@ const savePdfHandler = (container, store) => {
         )
       }
     )
-    formData.append('pages', pagesArray);
+    
+    //loop
+    let start = 0;
+    let string=[]
+    for(let i=0;i<pagesArray.length;i++) {
+      if(i===0) {start=pagesArray[0]}
+      else {
+        if(pagesArray[i]===(pagesArray[i-1]+1)){
+          if(pagesArray.length===(i+1)){
+            //tambien checar si es igual el start y el anterior
+            string.push(`${start}-${pagesArray[i]}`)
+          }
+        }else{
+          if(start===pagesArray[i-1]){
+            string.push(start.toString())
+            start=pagesArray[i]
+          } else {
+            string.push(`${start}-${pagesArray[i-1]}`)
+            start=pagesArray[i]
+          }
+        }
+      }
+    }
+    //loop
+    formData.append('pages', string);
     formData.append('messages', messageArray);
     formData.append('id_oficio', inputIdOficio.value);
-    fetch('http://10.13.1.3/SIGTRANS/ajax/pdfupload.ajax.php', {
+    fetch('http://localhost/SIGTRANS/ajax/pdfupload.ajax.php', {
       method: 'POST',
       body: formData
     })
-    .then( response => response.json())
+    .then( response => {
+      console.log('primera respuesta')
+      return response.text()
+    })
     .then(data => {
       console.log(data)
       window.close();
       console.log(data.url);
-      window.location.replace(data.url);
+      // window.location.replace(data.url);
     })
     .catch(er => console.log(er));
     
