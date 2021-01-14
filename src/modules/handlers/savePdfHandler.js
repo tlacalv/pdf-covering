@@ -116,10 +116,15 @@ const savePdfHandler = (container, store) => {
       return response.text()
     })
     .then(data => {
-      console.log(data)
-      window.close();
-      console.log(data.url);
-      // window.location.replace(data.url);
+      try{
+        let json = JSON.parse(data)
+        window.close();
+        console.log(json.url);
+        window.location.replace(json.url);
+      } catch(e) {
+        console.log(data)
+      }
+      
     })
     .catch(er => console.log(er));
     
