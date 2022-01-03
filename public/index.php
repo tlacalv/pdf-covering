@@ -1,6 +1,8 @@
 <?php 
   $id = $_GET['id_oficio'];
+  $table = $_GET['table'];
   echo '<input type="text" style="display:none;" id="id_oficio" value="'. $id .'">';
+  echo '<input type="text" style="display:none;" id="db_table" value="'. $table .'">';
 ?>
 <!DOCTYPE html>
 <html lang="en">
